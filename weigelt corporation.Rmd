@@ -1,0 +1,73 @@
+---
+title: "Weigelt Corporation"
+---
+
+
+If you have not yet installed the `lpSolveAPI`, use `install.packages` from the tools menu to do so. Or, just use the code below.
+
+* Note that lines that start with # are comments. 
+* At any point, use the Console to look for help about a particular function using ?. For example `?make.lp()` 
+* To run a chunk, the executable code, select the chunk, and use the Run button above to run that chunk. There are also keyboard shortcuts you can use to run chunks.
+
+```{r, eval=FALSE}
+install.packages("lpSolveAPI")
+```
+
+Now, load the library
+```{r}
+library(lpSolveAPI)
+```
+
+***
+Let us set up the WGC problem. Note that we had two decision variables, and three constraints.
+In the first formulation, we will directly create the objective function and constraints
+```{r}
+# make an lp object with 0 constraints and 9 decision variables
+lprec <- make.lp(nrow=0, ncol=9)
+
+set.objfn(lprec, c(420, 360, 300, 420, 360, 300, 420, 360, 300))
+
+lp.control(lprec,sense='max')
+
+add.constraint(lprec, c(1, 1, 1,0,0,0,0,0,0), "<=", 750)
+add.constraint(lprec, c(0,0,0,1, 1, 1,0,0,0), "<=", 900)
+add.constraint(lprec, c(0,0,0,0,0,0,1, 1, 1), "<=", 450)
+add.constraint(lprec, c(20,15,12,0,0,0,0,0,0), "<=", 13000)
+add.constraint(lprec, c(0,0,0,20,15,12,0, 0, 0), "<=", 12000)
+add.constraint(lprec, c(0,0,0,0,0,0,20, 15, 12), "<=", 5000)
+add.constraint(lprec, c(1,0,0,1,0,0,1, 0, 0), "<=", 900)
+add.constraint(lprec, c(0,1,0,0,1,0,0, 1, 0), "<=", 1200)
+add.constraint(lprec, c(0,0,1,0,0,1,0, 0, 1), "<=", 750)
+
+
+set.bounds(lprec, lower = c(0, 0), columns = c(1, 9)) #Not really needed
+
+
+RowNames <- c("Cap1", "cap2", "cap3", "space1","space2","space3", "sale1","sale2","sale3")
+ColNames <- c("L1", "M1","S1","L2", "M2","S2","L3", "M3","S3")
+dimnames(lprec) <- list(RowNames, ColNames)
+
+# Now, print out the model
+lprec
+
+
+
+```
+
+We now solve the above LP problem
+```{r}
+solve(lprec)
+```
+
+The output above doesn't indicate that the answer is 0, but that there was a successful solution.
+We now output the value of the objective function, and the variables
+```{r}
+get.objective(lprec)
+get.variables(lprec)
+get.constraints(lprec)
+```
+
+
+***
+
+We now read the lp formulation using an lp file. To read about about the lp format for files, you can read the documentation at http://lpsolve.sourceforge.net/5.5/lp-format.htm. 
