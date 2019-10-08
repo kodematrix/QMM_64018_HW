@@ -1,0 +1,9 @@
+library(lpSolveAPI)
+investment <investment
+solve(investment)
+get.objective(investment)
+get.variables(investment)
+investment <- read.lp("savunurilp2_5.lp")
+solve(investment)
+get.objective(investment)
+get.variables(investment)
