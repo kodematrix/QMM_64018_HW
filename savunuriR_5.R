@@ -1,5 +1,5 @@
 library(lpSolveAPI)
-investment <investment
+investment <investment("savunurilp_5.lp")
 solve(investment)
 get.objective(investment)
 get.variables(investment)
