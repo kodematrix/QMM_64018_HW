@@ -1,4 +1,11 @@
-# Rstudio
-#First assignment in Quantitative Management
-#Source: https://en.wikipedia.org/wiki/List_of_tallest_dams_in_the_United_States
-#The repository contains .CSV file, .XLXS file, .Rmd File
+# This Public Repository contains all executable files on RStudio related to Quantitative Management Modelling
+Instructor: Chaojiang (CJ) Wu
+
+● Linear Programming
+● Linear Programming under uncertainty
+● Transportation and Assignment problems
+● DEA and Goal Programming
+● Nonlinear Programming
+● Integer Programming
+● Search Methods: Blind, Local, and Population
+● Metaheuristics
