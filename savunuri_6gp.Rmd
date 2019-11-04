@@ -1,0 +1,51 @@
+---
+title: "Goal Programming"
+author: "Sumanth"
+date: "11/4/2019"
+output: html_document
+---
+
+```{r}
+library(lpSolveAPI)
+GoalProg <- read.lp("EmaxCorp.lp")
+GoalProg
+
+solve(GoalProg)
+get.objective(GoalProg)
+get.constraints(GoalProg)
+get.variables(GoalProg)
+```
+
+
+```{r}
+GoalProg1 <- read.lp("EmaxCorp1.lp")
+GoalProg1
+
+solve(GoalProg1)
+get.objective(GoalProg1)
+get.constraints(GoalProg1)
+get.variables(GoalProg1)
+```
+
+
+```{r}
+GoalProg2 <- read.lp("EmaxCorp2.lp")
+GoalProg2
+
+solve(GoalProg2)
+get.objective(GoalProg2)
+get.constraints(GoalProg2)
+get.variables(GoalProg2)
+```
+
+
+```{r}
+GoalProg3 <- read.lp("EmaxCorp3.lp")
+GoalProg3
+
+solve(GoalProg3)
+get.objective(GoalProg3)
+get.constraints(GoalProg3)
+get.variables(GoalProg3)
+```
+
