@@ -1,0 +1,137 @@
+---
+title: "Data Envelopment Analysis"
+output:
+  html_document:
+    df_print: paged
+  html_notebook: default
+  pdf_document: default
+---
+
+	Formulate and perform DEA analysis under all DEA assumptions of FDH, CRS, VRS, IRS, DRS, and FRH.
+
+Facility 1
+```{r}
+library(lpSolveAPI)
+dmu1 <- read.lp("DMU1.lp")
+dmu1
+solve(dmu1)
+get.objective(dmu1)
+get.variables(dmu1)
+```
+
+facility 2
+```{r}
+library(lpSolveAPI)
+dmu2 <- read.lp("DMU2.lp")
+dmu2
+solve(dmu2)
+get.objective(dmu2)
+get.variables(dmu2)
+```
+
+facility-3
+```{r}
+library(lpSolveAPI)
+dmu3 <- read.lp("DMU3.lp")
+dmu3
+solve(dmu3)
+get.objective(dmu3)
+get.variables(dmu3)
+```
+
+facility 4
+```{r}
+library(lpSolveAPI)
+dmu4 <- read.lp("DMU4.lp")
+dmu4
+solve(dmu4)
+get.objective(dmu4)
+get.variables(dmu4)
+```
+
+facility 5
+```{r}
+library(lpSolveAPI)
+dmu5 <- read.lp("DMU5.lp")
+dmu5
+solve(dmu5)
+get.objective(dmu5)
+get.variables(dmu5)
+```
+
+facility 6
+```{r}
+library(lpSolveAPI)
+dmu6 <- read.lp("DMU6.lp")
+dmu6
+solve(dmu6)
+get.objective(dmu6)
+get.variables(dmu6)
+```
+
+Benchmarking
+```{r}
+library(Benchmarking)
+x <- matrix(c(150,400,320,520,350,320,0.2,0.7,1.2,2.0,1.2,0.7),ncol=2)
+y <- matrix(c(14000,14000,42000,28000,19000,14000,3500,21000,10500,42000,25000,15000),ncol = 2)
+colnames(y) <- c("reimbursed","privately paid")
+colnames(x) <- c("staff","supplies")
+x
+y
+```
+
+DEA analysis
+```{r}
+DEA <- dea(x,y,RTS = "crs")            
+DEA
+DEA1 <- dea(x,y,RTS = "fdh")            
+DEA1
+DEA2 <- dea(x,y,RTS = "vrs")           
+DEA2
+DEA3 <- dea(x,y,RTS = "irs")            
+DEA3
+DEA4 <- dea(x,y,RTS = "drs")           
+DEA4
+DEA5 <- dea(x,y,RTS = "add")            
+DEA5
+DEA6 <- dea(x,y,RTS = "vrs+")  
+DEA6
+DEA7 <- dea(x,y,RTS = "irs2")
+DEA7
+DEA8 <- dea(x,y,RTS = "fdh+") 
+DEA8
+```
+
+Finding peers
+```{r}
+peers(DEA)
+peers(DEA1)
+peers(DEA2)
+peers(DEA3)
+peers(DEA4)
+peers(DEA5)
+peers(DEA6)
+peers(DEA7)
+peers(DEA8)
+```
+
+Finding lambda
+```{r}
+lambda(DEA)
+lambda(DEA1)
+lambda(DEA2)
+lambda(DEA3)
+lambda(DEA4)
+lambda(DEA5)
+lambda(DEA6)
+lambda(DEA7)
+lambda(DEA8)
+```
+#	Compare and contrast the above results
+
+->constant return to scale method results indicates that DMU 1,2,3,4 are efficient.
+->DMU 4 is 0.9777 efficient and DMU 5 is 0.8675 efficient.
+->Free Disposability Hull)—> All DMUs are efficient. VRS(variable returns to scale) —>DMU 1,2,3,4,5 are efficient and DMU 6 is 0.8963 efficient. IRS(Increasing return to scale)
+–>DMU 1,2,3,4,5 are efficient and DMU 6 is 0.8963 efficient. DRS(decreasing retun to scale)
+—>DMU 1,2,3,4 are efficient ,DMU 5 is 0.9775 efficient and DMU 6 is 0.8963 efficient. FRH/Add (Free replicability hull)
+—> All DMUs are efficient
