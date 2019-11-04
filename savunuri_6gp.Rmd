@@ -1,0 +1,72 @@
+---
+title: "Goal Programming"
+author: "Sumanth"
+date: "11/4/2019"
+output: html_document
+---
+
+Maximize Z = P - 6C - 3D
+
+P = total (discounted) profit over the life of the new products,
+C = change (in either direction) in the current level of employment,
+D = decrease (if any) in next year's earnings from the current year's level.
+
+Profit_Goal:
+Max P = 20x1 +15x2 + 25x3
+Emp_level goal:
+6x1 + 4x2 + 5x3 = 50   
+Earning_next_year goal:
+8x1 + 7x2 + 5x3 >=75 
+
+Part 1) 
+Model_Formulation:
+
+y1 = 6x1 + 4x2 + 5x3 - 50   
+y2 = 8x1 + 7x2 + 5x3 -75 
+
+Substitute the information into the original constraints
+
+For employment level goal y1 = y1+ - y1-
+y1+ - y1-= 6x1 + 4x2 + 5x3 - 50   
+
+For the goal regarding earnings next year y2 = y2+ - y2-
+y2+ - y2- = 8x1 + 7x2 + 5x3 -75
+
+Final Formulation
+Max P = 20x1 +15x2 + 25x3
+6x1 + 4x2 + 5x3 - (y1+ - y1-) = 50   
+8x1 + 7x2 + 5x3 - (y2+ - y2-) = 75
+Xj >=0, yi + >=0, yi - >=0 
+
+Part 2)
+
+Objective Function:
+Maximize Z = P - 6C - 3D
+
+Objective function in terms of x1, x2, x3, y1+, y1- , y2+ and y2-
+Maximize Z = 20x1 +15x2 + 25x3 - 6y1+ - 6y1- - 3y2- 
+
+Part 3)
+Objective Function:
+max: 20x1 + 15x2 + 25x3 - 6y1m -6y1p - 3y2m;
+
+Constraints:
+Xj >=0, yi + >=0, yi - >=0 
+6x1 + 4x2 + 5x3 - y1p + y1m = 50;
+8x1 + 7x2 + 5x3 - y2p + y2m = 75;
+
+
+```{r}
+library(lpSolveAPI)
+GoalProg <- read.lp("Emax.lp")
+GoalProg
+
+solve(GoalProg)
+get.objective(GoalProg)
+get.constraints(GoalProg)
+get.variables(GoalProg)
+```
+
+
+
+
